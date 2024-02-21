@@ -55,7 +55,7 @@ export default class ClienteCtrl
             if (cod && nome && tel) 
             {
                 const cliente = new Cliente(cod, nome, tel);
-                categoria.atualizar().then(() => {
+                cliente.atualizar().then(() => {
                     resposta.status(200).json({
                         "status": true,
                         "mensagem": "Cliente atualizado com sucesso!"

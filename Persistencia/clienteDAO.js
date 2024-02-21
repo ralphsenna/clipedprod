@@ -20,10 +20,10 @@ export default class ClienteDAO
     {
         if (cliente instanceof Cliente)
         {
-            const sql = 'UPDATE cliente SET cli_nome = ?, cli_tel = ?, WHERE cli_cod = ?'; 
+            const sql = 'UPDATE cliente SET cli_nome = ?, cli_tel = ? WHERE cli_cod = ?'; 
             const parametros = [cliente.nome, cliente.tel, cliente.cod];
             const conexao = await conectar();
-            await conexao.execute(sql,parametros);
+            await conexao.execute(sql, parametros);
             global.poolConexoes.releaseConnection(conexao);
         }
     }
@@ -35,7 +35,7 @@ export default class ClienteDAO
             const sql = 'DELETE FROM cliente WHERE cli_cod = ?'; 
             const parametros = [cliente.cod];
             const conexao = await conectar();
-            await conexao.execute(sql,parametros); 
+            await conexao.execute(sql, parametros); 
             global.poolConexoes.releaseConnection(conexao);
         }
     }
@@ -45,7 +45,7 @@ export default class ClienteDAO
         let sql = '';
         let parametros=[];
        
-        if (isNaN(parseInt(parametroConsulta)))
+        if (!isNaN(parseInt(parametroConsulta)))
         {
             sql = 'SELECT * FROM cliente WHERE cli_cod = ? order by cli_nome';
             parametros = [parametroConsulta];
