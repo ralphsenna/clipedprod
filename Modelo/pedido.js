@@ -1,6 +1,7 @@
 import PedidoDAO from "../Persistencia/pedidoDAO.js";
 
-export default class Pedido{
+export default class Pedido
+{
     #cod;
     #qtdItens;
     #valTotal;
@@ -8,9 +9,7 @@ export default class Pedido{
     #obs;
     #cliente;
 
-
-    constructor(cod=0, qtdItens=0, valTotal=0, 
-                data='', obs="", cliente={})
+    constructor(cod=0, qtdItens=0, valTotal=0, data='', obs="", cliente={})
     {
         this.#cod=cod;
         this.#qtdItens=qtdItens;
@@ -20,95 +19,94 @@ export default class Pedido{
         this.#cliente=cliente;
     }
 
-    
-    get codigo(){
-        return this.#codigo;
+    get cod()
+    {
+        return this.#cod;
     }
-    set codigo(novoCodigo){
-        this.#codigo = novoCodigo;
-    }
-
-    get descricao(){
-        return this.#descricao;
+    set cod(novoCod)
+    {
+        this.#cod = novoCod;
     }
 
-    set descricao(novaDesc){
-        this.#descricao=novaDesc;
+    get qtdItens()
+    {
+        return this.#qtdItens;
+    }
+    set qtdItens(novaQtdItens)
+    {
+        this.#qtdItens=novaQtdItens;
     }
 
-    get precoCusto(){
-        return this.#precoCusto;
+    get valTotal()
+    {
+        return this.#valTotal;
+    }
+    set valTotal(novoValTotal)
+    {
+        this.#valTotal = novoValTotal;
     }
 
-    set precoCusto(novoPreco){
-        this.#precoCusto = novoPreco
+    get data()
+    {
+        return this.#data;
+    }
+    set data(novaData)
+    {
+        this.#data = novaData;
     }
 
-    get precoVenda(){
-        return this.#precoVenda;
+    get obs()
+    {
+        return this.#obs;
     }
-    
-    set precoVenda(novoPreco){
-        this.#precoVenda = novoPreco
-    }
-
-    get dataValidade(){
-        return this.#dataValidade;
+    set obs(novaObs)
+    {
+        this.#obs = novaObs;
     }
 
-    set dataValidade(novaData){
-        this.#dataValidade = novaData;
+    get cliente()
+    {
+        return this.#cliente;
+    }
+    set cliente(novoCliente)
+    {
+        this.#cliente = novoCliente;
     }
 
-    get qtdEstoque(){
-        return this.#qtdEstoque;
-    }
-
-    set qtdEstoque(novaQtd){
-        this.#qtdEstoque = novaQtd;
-    }
-
-    get categoria(){
-        return this.#categoria;
-    }
-
-    set categoria(novaCat){
-        this.#categoria = novaCat;
-    }
-
-
-
-    toJSON(){
-        return {
-            codigo:this.#codigo,
-            descricao:this.#descricao,
-            precoCusto:this.#precoCusto,
-            precoVenda:this.#precoVenda,
-            dataValidade:this.#dataValidade,
-            qtdEstoque:this.#qtdEstoque,
-            categoria:this.#categoria
+    toJSON()
+    {
+        return{
+            cod:this.#cod,
+            qtdItens:this.#qtdItens,
+            valTotal:this.#valTotal,
+            data:this.#data,
+            obs:this.#obs,
+            cliente:this.#cliente
         }
     }
 
-     //camada de modelo acessa a camada de persistencia
-     async gravar(){
-        const prodDAO = new ProdutoDAO();
-        await prodDAO.gravar(this);
-     }
- 
-     async excluir(){
-        const prodDAO = new ProdutoDAO();
-        await prodDAO.excluir(this);
-     }
- 
-     async alterar(){
-        const prodDAO = new ProdutoDAO();
-        await prodDAO.atualizar(this);
-     }
- 
-     async consultar(termo){
-        const prodDAO = new ProdutoDAO();
-        return await prodDAO.consultar(termo);
-     }
 
+    async gravar()
+    {
+       const pedDAO = new PedidoDAO();
+       await pedDAO.gravar(this);
+    }
+ 
+    async excluir()
+    {
+       const pedDAO = new PedidoDAO();
+       await pedDAO.excluir(this);
+    }
+ 
+    async alterar()
+    {
+       const pedDAO = new PedidoDAO();
+       await pedDAO.atualizar(this);
+    }
+ 
+    async consultar(parametro)
+    {
+       const pedDAO = new PedidoDAO();
+       return await pedDAO.consultar(parametro);
+    }
 }

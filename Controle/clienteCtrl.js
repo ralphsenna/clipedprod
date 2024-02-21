@@ -136,19 +136,16 @@ export default class ClienteCtrl
         {
             const cliente = new Cliente();
             cliente.consultar(termo).then((listaClientes) => {
-                resposta.json(
-                {
+                resposta.json({
                     status:true,
                     listaClientes
                 });
             })
             .catch((erro) => {
-                resposta.json(
-                    {
-                        status:false,
-                        mensagem:"Não foi possível obter os clientes: " + erro.message
-                    }
-                );
+                resposta.json({
+                    status:false,
+                    mensagem:"Não foi possível obter os clientes: " + erro.message
+                });
             });
         }
         else 
