@@ -98,7 +98,7 @@ export default class Pedido
        await pedDAO.excluir(this);
     }
  
-    async alterar()
+    async atualizar()
     {
        const pedDAO = new PedidoDAO();
        await pedDAO.atualizar(this);

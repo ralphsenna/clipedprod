@@ -1,4 +1,4 @@
-import Pedido from "../Modelo/pedido.js.js";
+import Pedido from "../Modelo/pedido.js";
 
 export default class PedidoCtrl
 {
@@ -52,7 +52,7 @@ export default class PedidoCtrl
         resposta.type('application/json');
         if ((requisicao.method === 'PUT' || requisicao.method === 'PATCH') && requisicao.is('application/json')) {
             const dados = requisicao.body;
-            const cod = requisicao.cod;
+            const cod = dados.cod;
             const qtdItens = dados.qtdItens;
             const valTotal = dados.valTotal;
             const data = dados.data;
@@ -60,7 +60,7 @@ export default class PedidoCtrl
             const cliente = dados.cliente;
             if (cod && qtdItens>0 && valTotal>0 && data && obs && cliente) 
             {
-                const pedido = new Pedido(0, qtdItens, valTotal, data, obs, cliente);
+                const pedido = new Pedido(cod, qtdItens, valTotal, data, obs, cliente);
                 pedido.atualizar().then(() => {
                     resposta.status(200).json({
                         "status": true,
@@ -101,7 +101,7 @@ export default class PedidoCtrl
             if (cod) 
             {
                 const pedido = new Pedido(cod);
-                pedido.atualizar().then(() => {
+                pedido.excluir().then(() => {
                     resposta.status(200).json({
                         "status": true,
                         "mensagem": "Pedido excluído com sucesso!"

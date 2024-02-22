@@ -1,4 +1,4 @@
-import Pedido from '../Modelo/pedido.js.js';
+import Pedido from '../Modelo/pedido.js';
 import Cliente from '../Modelo/cliente.js';
 import conectar from './conexao.js';
 
@@ -55,10 +55,9 @@ export default class PedidoDAO
         let listaPedidos = [];
         if (!isNaN(parseInt(parametroConsulta)))
         {
-            const sql = `SELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal,
-                p.ped_data, p.ped_obs, c.cli_cod, c.cli.nome, c.cli.tel
-                INNER JOIN cliente c ON p.cli_cod = c.cli_cod
-                FROM pedido p 
+            const sql = `SSELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal, 
+                p.ped_data, p.ped_obs, p.cli_cod, c.cli_nome, c.cli_tel
+                FROM pedido p INNER JOIN cliente c ON p.cli_cod = c.cli_cod 
                 WHERE p.ped_cod = ?
                 ORDER BY p.ped_valTotal`;
             const parametros = [parametroConsulta];
@@ -74,10 +73,9 @@ export default class PedidoDAO
         }
         else
         {
-            const sql = `SELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal,
-                p.ped_data, p.ped_obs, c.cli_cod, c.cli.nome, c.cli.tel
-                INNER JOIN cliente c ON p.cli_cod = c.cli_cod
-                FROM pedido p 
+            const sql = `SELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal, 
+                p.ped_data, p.ped_obs, p.cli_cod, c.cli_nome, c.cli_tel
+                FROM pedido p INNER JOIN cliente c ON p.cli_cod = c.cli_cod 
                 WHERE p.ped_valTotal like ?
                 ORDER BY p.ped_valTotal`;
             const parametros=['%'+parametroConsulta+'%'];
