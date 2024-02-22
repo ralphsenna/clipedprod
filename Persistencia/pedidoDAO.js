@@ -55,7 +55,7 @@ export default class PedidoDAO
         let listaPedidos = [];
         if (!isNaN(parseInt(parametroConsulta)))
         {
-            const sql = `SSELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal, 
+            const sql = `SELECT p.ped_cod, p.ped_qtdItens, p.ped_valTotal, 
                 p.ped_data, p.ped_obs, p.cli_cod, c.cli_nome, c.cli_tel
                 FROM pedido p INNER JOIN cliente c ON p.cli_cod = c.cli_cod 
                 WHERE p.ped_cod = ?
