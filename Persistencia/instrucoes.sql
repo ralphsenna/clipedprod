@@ -7,7 +7,7 @@ CREATE TABLE cliente(
 
 CREATE TABLE pedido(
     ped_cod INT NOT NULL AUTO_INCREMENT,
-    ped_qtdItens DECIMAL(10,2) NOT NULL DEFAULT 0,
+    ped_qtdItens INT NOT NULL DEFAULT 0,
     ped_valTotal DECIMAL(10,2) NOT NULL DEFAULT 0,
     ped_data DATE,
     ped_obs VARCHAR(200) NOT NULL,
