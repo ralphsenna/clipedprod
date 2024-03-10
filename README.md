@@ -1,2 +1,2 @@
-# exemplocliped
-Exemplo Clientes e Pedidos
+# clipedprod
+Exemplo Clientes, Pedidos e Produtos
