@@ -17,21 +17,21 @@ CREATE TABLE pedido(
 );
 
 CREATE TABLE produto(
-    pro_cod INT NOT NULL AUTO_INCREMENT,
-    pro_desc VARCHAR(100) NOT NULL,
-    pro_precoCusto DECIMAL(10,2) NOT NULL,
-    pro_precoVenda DECIMAL(10,2) NOT NULL,
-    pro_valid DATE NOT NULL,
-    pro_qtdEstoque DECIMAL(10,2) NOT NULL DEFAULT 0,
-    CONSTRAINT pk_produto PRIMARY KEY(pro_cod)
+    prod_cod INT NOT NULL AUTO_INCREMENT,
+    prod_desc VARCHAR(100) NOT NULL,
+    prod_precoCusto DECIMAL(10,2) NOT NULL,
+    prod_precoVenda DECIMAL(10,2) NOT NULL,
+    prod_validade DATE NOT NULL,
+    prod_qtdEstoque DECIMAL(10,2) NOT NULL DEFAULT 0,
+    CONSTRAINT pk_produto PRIMARY KEY(prod_cod)
 );
 
 CREATE TABLE pedido_produto(
-    pro_cod INT NOT NULL,
-    pro_qtd INT NOT NULL,
-    pro_valUnit DECIMAL(10,2) NOT NULL,
+    prod_cod INT NOT NULL,
+    prod_qtd INT NOT NULL,
+    prod_valUnit DECIMAL(10,2) NOT NULL,
     ped_cod INT NOT NULL,
-    CONSTRAINT pk_pedido_produto PRIMARY KEY(pro_cod, ped_cod),
-    CONSTRAINT fk_produto FOREIGN KEY(pro_cod) REFERENCES produto(pro_cod),
+    CONSTRAINT pk_pedido_produto PRIMARY KEY(prod_cod, ped_cod),
+    CONSTRAINT fk_produto FOREIGN KEY(prod_cod) REFERENCES produto(prod_cod),
     CONSTRAINT fk_pedido FOREIGN KEY(ped_cod) REFERENCES pedido(ped_cod)
 );
