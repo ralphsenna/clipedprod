@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export function assinar(usuario){
-    const token = jwt.sign({usuario}, process.env.SEGREDO, {expiresIn: '300s'});
+    const token = jwt.sign({usuario}, process.env.SEGREDO, {expiresIn: '1h'});
     return token;
 }
 

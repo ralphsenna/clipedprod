@@ -7,8 +7,8 @@ export default class ClienteDAO
     {
         if (cliente instanceof Cliente)
         {
-            const sql = 'INSERT INTO cliente(cli_nome, cli_tel) VALUES(?,?)'; 
-            const parametros = [cliente.nome, cliente.tel];
+            const sql = 'INSERT INTO cliente(cli_nome, cli_tel, cli_end) VALUES(?,?,?)'; 
+            const parametros = [cliente.nome, cliente.tel, cliente.end];
             const conexao = await conectar();
             const retorno = await conexao.execute(sql, parametros);
             cliente.cod = retorno[0].insertId;
@@ -20,8 +20,8 @@ export default class ClienteDAO
     {
         if (cliente instanceof Cliente)
         {
-            const sql = 'UPDATE cliente SET cli_nome = ?, cli_tel = ? WHERE cli_cod = ?'; 
-            const parametros = [cliente.nome, cliente.tel, cliente.cod];
+            const sql = 'UPDATE cliente SET cli_nome = ?, cli_tel = ?, cli_end = ? WHERE cli_cod = ?'; 
+            const parametros = [cliente.nome, cliente.tel, cliente.end, cliente.cod];
             const conexao = await conectar();
             await conexao.execute(sql, parametros);
             global.poolConexoes.releaseConnection(conexao);
@@ -64,7 +64,7 @@ export default class ClienteDAO
         let listaClientes = [];
         for (const registro of registros)
         {
-            const cliente = new Cliente(registro.cli_cod, registro.cli_nome, registro.cli_tel);
+            const cliente = new Cliente(registro.cli_cod, registro.cli_nome, registro.cli_tel, registro.cli_end);
             listaClientes.push(cliente);
         }
         return listaClientes;

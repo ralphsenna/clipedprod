@@ -9,9 +9,10 @@ export default class ClienteCtrl
             const dados = requisicao.body;
             const nome = dados.nome;
             const tel = dados.tel;
-            if (nome && tel) 
+            const end = dados.end;
+            if (nome && tel && end) 
             {
-                const cliente = new Cliente(0, nome, tel);
+                const cliente = new Cliente(0, nome, tel, end);
                 cliente.gravar().then(() => {
                     resposta.status(200).json({
                         "status": true,
@@ -52,9 +53,10 @@ export default class ClienteCtrl
             const cod = dados.cod;
             const nome = dados.nome;
             const tel = dados.tel;
-            if (cod && nome && tel) 
+            const end = dados.end;
+            if (cod && nome && tel && end) 
             {
-                const cliente = new Cliente(cod, nome, tel);
+                const cliente = new Cliente(cod, nome, tel, end);
                 cliente.atualizar().then(() => {
                     resposta.status(200).json({
                         "status": true,

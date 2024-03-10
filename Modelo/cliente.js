@@ -5,12 +5,14 @@ export default class Cliente
     #cod;
     #nome;
     #tel;
+    #end;
 
-    constructor(cod=0, nome='', tel='')
+    constructor(cod=0, nome='', tel='', end='')
     {
         this.#cod = cod;
         this.#nome = nome;
         this.#tel = tel;
+        this.#end = end;
     }
 
     get cod()
@@ -40,12 +42,22 @@ export default class Cliente
         this.#tel = novoTel;
     }
 
+    get end()
+    {
+        return this.#end;
+    }
+    set end(novoEnd)
+    {
+        this.#end = novoEnd;
+    }
+
     toJSON()     
     {
         return{
             cod:this.#cod,
             nome:this.#nome,
-            tel:this.#tel
+            tel:this.#tel,
+            end:this.#end
         }
     }
 
