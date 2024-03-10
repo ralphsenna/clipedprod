@@ -27,10 +27,10 @@ CREATE TABLE produto(
 );
 
 CREATE TABLE pedido_produto(
+    ped_cod INT NOT NULL,
     prod_cod INT NOT NULL,
     prod_qtd INT NOT NULL,
-    prod_valUnit DECIMAL(10,2) NOT NULL,
-    ped_cod INT NOT NULL,
+    prod_valUnit DECIMAL(10,2) NOT NULL,    
     CONSTRAINT pk_pedido_produto PRIMARY KEY(prod_cod, ped_cod),
     CONSTRAINT fk_produto FOREIGN KEY(prod_cod) REFERENCES produto(prod_cod),
     CONSTRAINT fk_pedido FOREIGN KEY(ped_cod) REFERENCES pedido(ped_cod)
