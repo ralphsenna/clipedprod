@@ -8,14 +8,13 @@ export default class PedidoCtrl
         if (requisicao.method === 'POST' && requisicao.is('application/json'))
         {
             const dados = requisicao.body;
-            const qtdItens = dados.qtdItens;
-            const valTotal = dados.valTotal;
             const data = dados.data;
             const obs = dados.obs;
+            const valTotal = dados.valTotal;
             const cliente = dados.cliente;
-            if (qtdItens>0 && valTotal>0 && data && obs && cliente) 
+            if (data && obs && valTotal>0 && cliente) 
             {
-                const pedido = new Pedido(0, qtdItens, valTotal, data, obs, cliente);
+                const pedido = new Pedido(0, data, obs, valTotal, cliente);
                 pedido.gravar().then(() => {
                     resposta.status(200).json({
                         "status": true,
@@ -53,14 +52,13 @@ export default class PedidoCtrl
         if ((requisicao.method === 'PUT' || requisicao.method === 'PATCH') && requisicao.is('application/json')) {
             const dados = requisicao.body;
             const cod = dados.cod;
-            const qtdItens = dados.qtdItens;
-            const valTotal = dados.valTotal;
             const data = dados.data;
             const obs = dados.obs;
+            const valTotal = dados.valTotal;
             const cliente = dados.cliente;
-            if (cod && qtdItens>0 && valTotal>0 && data && obs && cliente) 
+            if (cod && data && obs && valTotal>0 && cliente) 
             {
-                const pedido = new Pedido(cod, qtdItens, valTotal, data, obs, cliente);
+                const pedido = new Pedido(0, data, obs, valTotal, cliente);
                 pedido.atualizar().then(() => {
                     resposta.status(200).json({
                         "status": true,

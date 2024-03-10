@@ -3,19 +3,17 @@ import PedidoDAO from "../Persistencia/pedidoDAO.js";
 export default class Pedido
 {
     #cod;
-    #qtdItens;
-    #valTotal;
     #data;
     #obs;
+    #valTotal;   
     #cliente;
 
-    constructor(cod=0, qtdItens=0, valTotal=0, data='', obs="", cliente={})
+    constructor(cod=0, data='', obs="", valTotal=0, cliente={})
     {
         this.#cod=cod;
-        this.#qtdItens=qtdItens;
-        this.#valTotal=valTotal;
         this.#data=data;
         this.#obs=obs;
+        this.#valTotal=valTotal;
         this.#cliente=cliente;
     }
 
@@ -26,24 +24,6 @@ export default class Pedido
     set cod(novoCod)
     {
         this.#cod = novoCod;
-    }
-
-    get qtdItens()
-    {
-        return this.#qtdItens;
-    }
-    set qtdItens(novaQtdItens)
-    {
-        this.#qtdItens=novaQtdItens;
-    }
-
-    get valTotal()
-    {
-        return this.#valTotal;
-    }
-    set valTotal(novoValTotal)
-    {
-        this.#valTotal = novoValTotal;
     }
 
     get data()
@@ -64,6 +44,15 @@ export default class Pedido
         this.#obs = novaObs;
     }
 
+    get valTotal()
+    {
+        return this.#valTotal;
+    }
+    set valTotal(novoValTotal)
+    {
+        this.#valTotal = novoValTotal;
+    }
+
     get cliente()
     {
         return this.#cliente;
@@ -77,10 +66,9 @@ export default class Pedido
     {
         return{
             cod:this.#cod,
-            qtdItens:this.#qtdItens,
-            valTotal:this.#valTotal,
             data:this.#data,
             obs:this.#obs,
+            valTotal:this.#valTotal,
             cliente:this.#cliente
         }
     }
