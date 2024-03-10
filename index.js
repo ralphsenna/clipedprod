@@ -2,10 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import rotaCliente from './Rotas/rotaCliente.js';
 import rotaPedido from './Rotas/rotaPedido.js';
+import rotaProduto from './Rotas/rotaProduto.js';
 import rotaLogin from './Rotas/rotaLogin.js';
 import dotenv from 'dotenv';
 import session from 'express-session';
 import { verificarAcesso } from './Seguranca/autenticacao.js';
+
 
 const host='0.0.0.0';
 const porta='3000';
@@ -27,6 +29,7 @@ app.use(session({
 app.use('/login',rotaLogin);
 app.use('/cliente', verificarAcesso, rotaCliente);
 app.use('/pedido', verificarAcesso, rotaPedido);
+app.use('/produto', verificarAcesso, rotaProduto);
 
 app.listen(porta, host, () => {
     console.log(`Servidor escutando na porta ${host}:${porta}.`);

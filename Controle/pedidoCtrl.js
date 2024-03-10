@@ -129,7 +129,6 @@ export default class PedidoCtrl
         }
     }
 
-
     consultar(requisicao, resposta) 
     {
         resposta.type('application/json');
@@ -143,14 +142,14 @@ export default class PedidoCtrl
             const pedido = new Pedido();
             pedido.consultar(termo).then((listaPedidos) => {
                 resposta.json({
-                    status: true,
+                    "status": true,
                     listaPedidos
                 });
             })
             .catch((erro) => {
                 resposta.json({
-                    status: false,
-                    mensagem: "Não foi possível obter os pedidos: " + erro.message
+                    "status": false,
+                    "mensagem": "Não foi possível obter os pedidos: " + erro.message
                 });
             });
         }
