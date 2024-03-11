@@ -97,7 +97,7 @@ export default class Produto
         await prodDAO.excluir(this);
     }
 
-    async alterar()
+    async atualizar()
     {
         const prodDAO = new ProdutoDAO();
         await prodDAO.atualizar(this);

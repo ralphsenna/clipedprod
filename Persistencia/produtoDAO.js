@@ -9,7 +9,7 @@ export default class ProdutoDAO
         {
             const sql = `INSERT INTO produto(prod_desc, prod_precoCusto, 
                 prod_precoVenda, prod_validade, prod_qtdEstoque)
-                VALUES(?,?,?,?,?,?)`;
+                VALUES(?,?,?,?,?)`;
             const parametros = [produto.desc, produto.precoCusto, produto.precoVenda,
                 produto.validade, produto.qtdEstoque];
             const conexao = await conectar();
@@ -24,7 +24,7 @@ export default class ProdutoDAO
         if (produto instanceof Produto) 
         {
             const sql = `UPDATE produto SET prod_desc = ?, prod_precoCusto = ?,
-                prod_precoVenda = ?, prod_validade = ?, prod_qtdEstoque = ?,
+                prod_precoVenda = ?, prod_validade = ?, prod_qtdEstoque = ?
                 WHERE prod_cod = ?`;
             const parametros = [produto.desc, produto.precoCusto, produto.precoVenda,
                 produto.validade, produto.qtdEstoque, produto.cod];
@@ -73,7 +73,6 @@ export default class ProdutoDAO
         }
         else
         {
-            //consulta pela descrição do produto
             const sql = `SELECT p.prod_cod, p.prod_desc, p.prod_precoCusto, 
                 p.prod_precoVenda, p.prod_validade,  p.prod_qtdEstoque
                 FROM produto p
