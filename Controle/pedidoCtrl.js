@@ -1,4 +1,7 @@
+import Cliente from "../Modelo/cliente.js";
 import Pedido from "../Modelo/pedido.js";
+import Produto from "../Modelo/produto.js";
+import ItemPedido from "../Modelo/itemPedido.js";
 
 export default class PedidoCtrl
 {
@@ -12,9 +15,18 @@ export default class PedidoCtrl
             const obs = dados.obs;
             const valTotal = dados.valTotal;
             const cliente = dados.cliente;
-            if (data && obs && valTotal>0 && cliente) 
+            const itensPedido = dados.itens;
+            const objCliente = new Cliente(cliente.cod);
+            let itens = [];
+            for (const item of itensPedido) 
             {
-                const pedido = new Pedido(0, data, obs, valTotal, cliente);
+                const produto = new Produto(item.cod);
+                const objItem = new ItemPedido(produto, item.qtd, item.valUnit);
+                itens.push(objItem);
+            }
+            if (data && obs && valTotal>0 && cliente && itensPedido) 
+            {
+                const pedido = new Pedido(0, data, obs, valTotal, objCliente, itens);
                 pedido.gravar().then(() => {
                     resposta.status(200).json({
                         "status": true,
@@ -48,7 +60,7 @@ export default class PedidoCtrl
 
     atualizar(requisicao, resposta) 
     {
-        resposta.type('application/json');
+        /* resposta.type('application/json');
         if ((requisicao.method === 'PUT' || requisicao.method === 'PATCH') && requisicao.is('application/json')) {
             const dados = requisicao.body;
             const cod = dados.cod;
@@ -86,7 +98,7 @@ export default class PedidoCtrl
                 "status": false,
                 "mensagem": "Por favor, utilize os métodos PUT ou PATCH para atualizar um pedido!"
             });
-        }
+        } */
     }
 
     excluir(requisicao, resposta) 

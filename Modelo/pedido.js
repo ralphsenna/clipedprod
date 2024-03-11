@@ -7,14 +7,16 @@ export default class Pedido
     #obs;
     #valTotal;   
     #cliente;
+    #itens;
 
-    constructor(cod=0, data='', obs="", valTotal=0, cliente={})
+    constructor(cod=0, data='', obs="", valTotal=0, cliente={}, itens={})
     {
         this.#cod=cod;
         this.#data=data;
         this.#obs=obs;
         this.#valTotal=valTotal;
         this.#cliente=cliente;
+        this.#itens=itens;
     }
 
     get cod()
@@ -62,6 +64,15 @@ export default class Pedido
         this.#cliente = novoCliente;
     }
 
+    get itens()
+    {
+        return this.#itens;
+    }
+    set itens(novosItens)
+    {
+        this.#itens = novosItens;
+    }
+
     toJSON()
     {
         return{
@@ -69,7 +80,8 @@ export default class Pedido
             data:this.#data,
             obs:this.#obs,
             valTotal:this.#valTotal,
-            cliente:this.#cliente
+            cliente:this.#cliente,
+            itens:this.#itens
         }
     }
 
