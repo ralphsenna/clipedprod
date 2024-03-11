@@ -1,16 +1,19 @@
 import { assinar, verificarAssinatura } from "./funcoesJWT.js";
 
-export function autenticar(requisicao, resposta){
+export function autenticar(requisicao, resposta)
+{
     const usuario = requisicao.body.usuario;
     const senha = requisicao.body.senha;
-    if (usuario === 'admin' && senha === 'admin'){
+    if (usuario === 'admin' && senha === 'admin')
+    {
         requisicao.session.usuarioAutenticado = usuario;
         resposta.json({
             "status": true,
             "token": assinar({usuario})
         })
     }
-    else{
+    else
+    {
         requisicao.session.usuarioAutenticado = null;
         resposta.status(401).json({
             "status": false,
@@ -19,16 +22,20 @@ export function autenticar(requisicao, resposta){
     }
 }
 
-export function verificarAcesso(requisicao, resposta, next){
+export function verificarAcesso(requisicao, resposta, next)
+{
     const token = requisicao.headers['authorization'];
-    let tokenDecodificado = '';
-    if (token){
+    let tokenDecodificado = undefined;
+    if (token)
+    {
         tokenDecodificado = verificarAssinatura(token);
     }
-    if (tokenDecodificado.usuario.usuario == requisicao.session.usuarioAutenticado){
+    if ((tokenDecodificado !== undefined) && (tokenDecodificado.usuario.usuario == requisicao.session.usuarioAutenticado))
+    {
         next();        
     } 
-    else{
+    else
+    {
         resposta.status(401).json({
             "status": false,
             "mensagem": "Acesso não autorizado. Faça o login na aplicação!"

@@ -38,7 +38,7 @@ export default class ProdutoDAO
     {
         if (produto instanceof Produto) 
         {
-            const sql = `DELETE FROM produto WHERE prod_cod = ?`;
+            const sql = 'DELETE FROM produto WHERE prod_cod = ?';
             const parametros = [produto.cod];
             const conexao = await conectar();
             await conexao.execute(sql, parametros);
