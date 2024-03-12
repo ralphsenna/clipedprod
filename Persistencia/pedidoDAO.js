@@ -18,10 +18,10 @@ export default class PedidoDAO
                 const parametros = [pedido.data, pedido.obs, pedido.valTotal, pedido.cliente.cod];
                 const retorno = await conexao.execute(sql, parametros);
                 pedido.cod = retorno[0].insertId;
-                const sql2 = 'INSERT INTO pedido_produto(ped_cod, prod_cod, prod_qtd, prod_valUnit) VALUES(?,?,?,?)';
+                const sql2 = 'INSERT INTO pedido_produto(ped_cod, prod_cod, prod_qtd, prod_valUnit, prod_subTotal) VALUES(?,?,?,?,?)';
                 for (const item of pedido.itens) 
                 {
-                    const parametros2 = [pedido.cod, item.produto.cod, item.qtd, item.valUnit];
+                    const parametros2 = [pedido.cod, item.produto.cod, item.qtd, item.valUnit, item.subTotal];
                     await conexao.execute(sql2, parametros2);
                 }
                 await conexao.commit();
@@ -83,8 +83,9 @@ export default class PedidoDAO
         if (!isNaN(parseInt(parametroConsulta)))
         {
             const sql = `SELECT p.ped_cod, p.ped_data, p.ped_obs, p.ped_valTotal, p.cli_cod, 
-                c.cli_nome, c.cli_tel, c.cli_end, 
-                i.prod_cod, pr.prod_desc, i.prod_qtd, i.prod_valUnit, i.prod_qtd*i.prod_valUnit as subtotal
+                c.cli_nome, c.cli_tel, c.cli_end, pr.prod_cod, 
+                pr.prod_desc, pr.prod_precoCusto, pr.prod_precoVenda, pr.prod_validade, pr.prod_qtdEstoque,
+                i.prod_cod, pr.prod_desc, i.prod_qtd, i.prod_valUnit, i.prod_subTotal
                 FROM pedido p 
                 INNER JOIN cliente c ON p.cli_cod = c.cli_cod 
                 INNER JOIN pedido_produto i ON p.ped_cod = i.ped_cod
@@ -99,24 +100,25 @@ export default class PedidoDAO
                 let listaItensPedido = [];
                 for (const registro of registros)
                 {
-                    const produto = new Produto(registro.prod_cod, registro.prod_desc);
-                    const itemPedido = new ItemPedido(produto, registro.prod_qtd, registro.prod_valUnit, registro.subtotal);
-                    listaItens.push(itemPedido);
+                    const produto = new Produto(registro.prod_cod, registro.prod_desc, registro.prod_precoCusto, registro.prod_precoVenda, registro.prod_validade, registro.prod_qtdEstoque);
+                    const itemPedido = new ItemPedido(produto, registro.prod_qtd, registro.prod_valUnit, registro.prod_subTotal);
+                    listaItensPedido.push(itemPedido);
                 }
-                const pedido = new Pedido(registros.ped_cod, registros.ped_data, registros.ped_obs, registros.ped_valTotal, cliente, listaItens);
+                const pedido = new Pedido(registros[0].ped_cod, registros[0].ped_data, registros[0].ped_obs, registros[0].ped_valTotal, cliente, listaItensPedido);
                 listaPedidos.push(pedido);
             }
         }
         else
         {
             const sql = `SELECT p.ped_cod, p.ped_data, p.ped_obs, p.ped_valTotal, p.cli_cod, 
-                c.cli_nome, c.cli_tel, c.cli_end, 
-                i.prod_cod, pr.prod_desc, i.prod_qtd, i.prod_valUnit, i.prod_qtd*i.prod_valUnit as subtotal
+                c.cli_nome, c.cli_tel, c.cli_end, pr.prod_cod, 
+                pr.prod_desc, pr.prod_precoCusto, pr.prod_precoVenda, pr.prod_validade, pr.prod_qtdEstoque,
+                i.prod_cod, pr.prod_desc, i.prod_qtd, i.prod_valUnit, i.prod_subTotal
                 FROM pedido p 
                 INNER JOIN cliente c ON p.cli_cod = c.cli_cod 
                 INNER JOIN pedido_produto i ON p.ped_cod = i.ped_cod
                 INNER JOIN produto pr ON pr.prod_cod = i.prod_cod
-                WHERE p.ped_valTotal like ?
+                WHERE p.ped_cod = ?
                 ORDER BY p.ped_valTotal`;
             const parametros=['%'+parametroConsulta+'%'];
             const [registros, campos] = await conexao.execute(sql, parametros);
@@ -126,11 +128,11 @@ export default class PedidoDAO
                 let listaItensPedido = [];
                 for (const registro of registros)
                 {
-                    const produto = new Produto(registro.prod_cod, registro.prod_desc);
-                    const itemPedido = new ItemPedido(produto, registro.prod_qtd, registro.prod_valUnit, registro.subtotal);
-                    listaItens.push(itemPedido);
+                    const produto = new Produto(registro.prod_cod, registro.prod_desc, registro.prod_precoCusto, registro.prod_precoVenda, registro.prod_validade, registro.prod_qtdEstoque);
+                    const itemPedido = new ItemPedido(produto, registro.prod_qtd, registro.prod_valUnit, registro.prod_subTotal);
+                    listaItensPedido.push(itemPedido);
                 }
-                const pedido = new Pedido(registros.ped_cod, registros.ped_data, registros.ped_obs, registros.ped_valTotal, cliente, listaItens);
+                const pedido = new Pedido(registros[0].ped_cod, registros[0].ped_data, registros[0].ped_obs, registros[0].ped_valTotal, cliente, listaItensPedido);
                 listaPedidos.push(pedido);
             }
         }

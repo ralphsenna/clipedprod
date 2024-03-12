@@ -13,15 +13,17 @@ export default class PedidoCtrl
             const dados = requisicao.body;
             const data = dados.data;
             const obs = dados.obs;
-            const valTotal = dados.valTotal;
+            let valTotal = dados.valTotal;
             const cliente = dados.cliente;
             const itensPedido = dados.itens;
             const objCliente = new Cliente(cliente.cod);
             let itens = [];
             for (const item of itensPedido) 
             {
+                item.subTotal = item.qtd*item.valUnit;
+                valTotal += item.subTotal;
                 const produto = new Produto(item.cod);
-                const objItem = new ItemPedido(produto, item.qtd, item.valUnit);
+                const objItem = new ItemPedido(produto, item.qtd, item.valUnit, item.subTotal);
                 itens.push(objItem);
             }
             if (data && obs && valTotal>0 && cliente && itensPedido) 

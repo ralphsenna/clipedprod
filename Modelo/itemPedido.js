@@ -3,14 +3,14 @@ export default class ItemPedido
     #produto;
     #qtd;
     #valUnit;
-    #subtotal; 
+    #subTotal; 
     
-    constructor(produto, qtd, valUnit, subtotal) 
+    constructor(produto, qtd, valUnit, subTotal) 
     {
         this.#produto = produto;
         this.#qtd = qtd;
         this.#valUnit = valUnit;
-        this.#subtotal = qtd*valUnit;
+        this.#subTotal = subTotal;
     }
 
     get produto() 
@@ -40,10 +40,13 @@ export default class ItemPedido
         this.#valUnit = novoValUnit;
     }
     
-    get subtotal() 
+    get subTotal()
     {
-        this.#subtotal = this.#qtd*this.#valUnit;
-        return this.#subtotal;
+        return this.#subTotal;
+    }
+    set subTotal(novoSubTotal) 
+    {
+        this.#subTotal = novoSubTotal;
     }
 
     toJSON() 
@@ -52,7 +55,7 @@ export default class ItemPedido
             produto: this.#produto,
             qtd: this.#qtd,
             valUnit: this.#valUnit,
-            subtotal: this.#subtotal
+            subTotal: this.#subTotal
         };
     }
 }
