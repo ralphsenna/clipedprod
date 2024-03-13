@@ -26,7 +26,7 @@ app.use(session({
     maxAge: 1000*60*60   //60 Minutos ou 1 Hora
 }))
 
-app.use('/login',rotaLogin);
+app.use('/login', rotaLogin);
 app.use('/cliente', verificarAcesso, rotaCliente);
 app.use('/pedido', verificarAcesso, rotaPedido);
 app.use('/produto', verificarAcesso, rotaProduto);
