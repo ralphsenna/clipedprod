@@ -1,0 +1,122 @@
+        ------- CLIENTES -------
+
+{
+    "nome":"Julio Cesar",
+    "tel":"(19)98522-6974",
+    "end":"Aveinida Washigton Oliver, 5599"
+}
+
+{
+    "nome":"Rafael Nadal",
+    "tel":"(85)97896632",
+    "end":"Rua das Flores, 123"
+}
+
+
+        ------- PRODUTOS -------
+
+{
+    "desc":"Arroz Solito Premium 5kg",
+    "precoCusto":9.00,
+    "precoVenda":17.99,
+    "validade":"2024-07-31",
+    "qtdEstoque":100
+}
+
+{
+    "desc":"Feijão Carioca 1kg",
+    "precoCusto":5,
+    "precoVenda":9.99,
+    "validade":"2024-08-12",
+    "qtdEstoque":100
+}
+
+{
+    "desc":"Macarrão Espaguete 500g",
+    "precoCusto":3,
+    "precoVenda":5.99,
+    "validade":"2024-09-30",
+    "qtdEstoque":100
+}
+
+{
+    "desc":"Óleo de Soja 900ml",
+    "precoCusto":4,
+    "precoVenda":7.99,
+    "validade":"2024-10-31",
+    "qtdEstoque":100
+}
+
+{
+    "desc":"Colgate Platium Max Care",
+    "precoCusto":2.25,
+    "precoVenda":5.67,
+    "validade":"2026-09-18",
+    "qtdEstoque":50
+}
+
+
+        ------- PEDIDOS -------
+
+{
+    "data":"2024-01-05",
+    "obs":"Entregar no horário combinado.",
+    "valTotal":0,
+    "cliente":{
+        "cod":1
+    },
+    "itens":[
+        {
+            "cod":1,
+            "qtd":2,
+            "valUnit":17.99,
+            "subTotal":0
+        },
+        {
+            "cod":2,
+            "qtd":3,
+            "valUnit":9.99,
+            "subTotal":0
+        },
+        {
+            "cod":4,
+            "qtd":5,
+            "valUnit":7.99,
+            "subTotal":0
+        }
+    ]
+}
+
+{
+    "data": "2024-02-26",
+    "obs": "Conferir todos os itens do pedido!",
+    "valTotal":0,
+    "cliente":{
+        "cod":1
+    },
+    "itens":[
+        {
+            "cod":3,
+            "qtd":10,
+            "valUnit":5.99,
+            "subTotal":0
+        }
+    ]
+}
+
+{
+    "data": "2024-03-19",
+    "obs": "Apartamento 302. Favor interfonar antes de subir.",
+    "valTotal":0,
+    "cliente":{
+        "cod":2
+    },
+    "itens":[
+        {
+            "cod":2,
+            "qtd":3,
+            "valUnit":9.99,
+            "subTotal":0
+        }
+    ]
+}
